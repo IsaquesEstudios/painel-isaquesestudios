@@ -5,7 +5,7 @@ import CreateTask from "@/components/CreateTask";
 import { useEffect, useState } from "react";
 import FindAllTask from "@/components/FindAllTask";
 
-export default async function Index() {
+export default function Index() {
   // const [tasks, setTasks] = useState<any>();
 
 

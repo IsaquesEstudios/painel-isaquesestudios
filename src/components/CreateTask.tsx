@@ -1,12 +1,14 @@
 "use client"
 import { db } from "@/util/firebase";
 import { Timestamp, addDoc, collection, getDocs } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
-export default async function CreateTask() {
+export default function CreateTask() {
   const [title, setTitle] = useState<string>();
   const [description, setDescription] = useState<string>();
   const [end, setEnd] = useState<string>();
+  const router = useRouter()
 
   async function HandleCreateTasks(e: FormEvent) {
     e.preventDefault();
@@ -14,15 +16,17 @@ export default async function CreateTask() {
       title: title,
       description: description,
       created_at: Timestamp.fromDate(new Date()),
-      end_at: Timestamp.fromDate(new Date()),
+      end_at: end,
     })
       .then((e) => {
         console.log(e);
+
       })
       .catch((e) => {
         console.log(e);
       });
-  }
+      window.location.reload()
+    }
 
   return (
     <div>
