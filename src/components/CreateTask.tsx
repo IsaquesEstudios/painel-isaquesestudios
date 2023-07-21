@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { db } from "@/util/firebase";
 import { Timestamp, addDoc, collection, getDocs } from "firebase/firestore";
 import { useRouter } from "next/navigation";
@@ -7,16 +7,19 @@ import { FormEvent, useState } from "react";
 export default function CreateTask() {
   const [title, setTitle] = useState<string>();
   const [description, setDescription] = useState<string>();
-  const [end, setEnd] = useState<string>();
-  const router = useRouter()
+  const [end, setEnd] = useState<any>();
+  const router = useRouter();
 
   async function HandleCreateTasks(e: FormEvent) {
     e.preventDefault();
+    const DateFormat = end.replace(/-/g, ",") 
+    const EndDate = new Date(DateFormat);
+
     await addDoc(collection(db, "tasks"), {
       title: title,
       description: description,
       created_at: Timestamp.fromDate(new Date()),
-      end_at: end,
+      end_at: EndDate,
     })
       .then((e) => {
         console.log(e);
@@ -26,7 +29,7 @@ export default function CreateTask() {
         console.log(e);
       });
       window.location.reload()
-    }
+  }
 
   return (
     <div>
@@ -51,7 +54,7 @@ export default function CreateTask() {
           className="col-span-2 w-[25%]"
         />
         <input
-          type="text"
+          type="date"
           placeholder="Entregar"
           onChange={(e) => {
             setEnd(e.target.value);
