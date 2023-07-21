@@ -3,6 +3,7 @@ import { db } from "@/util/firebase";
 import { Timestamp, addDoc, collection, getDocs } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export default function CreateTask() {
   const [title, setTitle] = useState<string>();
@@ -12,10 +13,13 @@ export default function CreateTask() {
 
   async function HandleCreateTasks(e: FormEvent) {
     e.preventDefault();
-    const DateFormat = end.replace(/-/g, ",") 
+    const DateFormat = end.replace(/-/g, ",");
     const EndDate = new Date(DateFormat);
 
+    const id = uuidv4();
+
     await addDoc(collection(db, "tasks"), {
+      uuid: id,
       title: title,
       description: description,
       created_at: Timestamp.fromDate(new Date()),
@@ -23,12 +27,11 @@ export default function CreateTask() {
     })
       .then((e) => {
         console.log(e);
-
       })
       .catch((e) => {
         console.log(e);
       });
-      window.location.reload()
+    window.location.reload();
   }
 
   return (
@@ -43,7 +46,7 @@ export default function CreateTask() {
           onChange={(e) => {
             setTitle(e.target.value);
           }}
-          className="col-span-2 w-[25%]"
+          className="col-span-2 w-[25%] text-black-800"
         />
         <input
           type="text"
@@ -51,7 +54,7 @@ export default function CreateTask() {
           onChange={(e) => {
             setDescription(e.target.value);
           }}
-          className="col-span-2 w-[25%]"
+          className="col-span-2 w-[25%] text-black-800"
         />
         <input
           type="date"
@@ -59,7 +62,7 @@ export default function CreateTask() {
           onChange={(e) => {
             setEnd(e.target.value);
           }}
-          className="col-span-2 w-[25%]"
+          className="col-span-2 w-[25%] text-black-800"
         />
 
         <button type="submit" className="col-span-2 bg-black-100 w-[20%]">
