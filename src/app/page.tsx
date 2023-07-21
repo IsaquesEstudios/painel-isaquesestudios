@@ -31,6 +31,7 @@ export default function Page() {
   });
   
   async function HandleSignIn(e: FormEvent) {
+    e.preventDefault()
     await signIn({ email, password });
   }
 
