@@ -55,7 +55,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
           window.location.href = "/painel";
         }
       } else {
-        console.log("não logou");
+        console.log("não está logado");
+        
       }
     });
   });
@@ -69,6 +70,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
           // ...
 
           setData(userCredential);
+          console.log("logou")
+
         })
         .catch((error) => {
           const errorCode = error.code;
