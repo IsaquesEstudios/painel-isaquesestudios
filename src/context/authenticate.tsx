@@ -56,7 +56,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
       } else {
         console.log("não está logado");
-        
       }
     });
   });
@@ -70,8 +69,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           // ...
 
           setData(userCredential);
-          console.log("logou")
-
+          console.log("logou");
         })
         .catch((error) => {
           const errorCode = error.code;
