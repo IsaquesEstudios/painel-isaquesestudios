@@ -53,6 +53,7 @@ export default function CreateTask() {
           onChange={(e) => {
             setTitle(e.target.value);
           }}
+          required
           className="col-span-2 w-full mb-4 text-black-800"
         />
         <textarea
@@ -60,11 +61,13 @@ export default function CreateTask() {
           onChange={(e) => {
             setDescription(e.target.value);
           }}
+          required
           className="col-span-2 w-full h-52 mb-4 text-black-800"
         />
 
         <div className="flex gap-x-10 mb-4">
           <select
+            required
             placeholder="Responsavel pelo projeto"
             className="text-black-800 col-span-2 w-full"
             onChange={(e: any) => {
@@ -72,6 +75,7 @@ export default function CreateTask() {
             }}
           >
             <option value="Responsavel">Responsavel pelo projeto</option>
+            <option value="Todos">Todos</option>
             <option value="Abraão Isaque">Abraão Isaque</option>
             <option value="Ezequiel Isaque">Ezequiel Isaque</option>
             <option value="Matteus Isaque">Matteus Isaque</option>
@@ -83,6 +87,7 @@ export default function CreateTask() {
             onChange={(e) => {
               setValueOfTask(e.target.value);
             }}
+            required
             className="col-span-2 w-full text-black-800"
           />
         </div>
@@ -94,6 +99,7 @@ export default function CreateTask() {
             onChange={(e) => {
               setEnd(e.target.value);
             }}
+            required
             className="col-span-2 w-full text-black-800"
           />
         </div>

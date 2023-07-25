@@ -20,20 +20,29 @@ type AuthProviderProps = {
   children: ReactNode;
 };
 
-// type DataUser = {
-//   name: string
-//   email: string
-//   permission: string[]
-//   payments: string[]
-//   pending_payments: string[]
-//   calls: string[]
-//   created_at: string
-// }
+type DataUser = {
+  displayName: string;
+  email: string;
+  emailVerified: boolean;
+  isAnonymous: boolean;
+  phoneNumber: any;
+  uid: string;
+  photoURL: string;
+  metadata: {
+    createdAt: string;
+    creationTime: string;
+    lastLoginAt: string;
+    LastSignInTime: string;
+  };
+  reloadUserInfo: {
+    passwordUpdatedAt: number;
+  };
+};
 
 type AuthContextData = {
   signIn(credentials: SignInCredentials): Promise<any>;
   signUp(credentials: SignInCredentials): Promise<void>;
-  // data: DataUser
+  data: DataUser;
   isAuthenticated: boolean;
 };
 
@@ -48,7 +57,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const auth = getAuth();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    console.log(data);
+    onAuthStateChanged(auth, (user: any) => {
       if (user) {
         setData(user);
         if (window.location.pathname === "/") {
@@ -88,7 +98,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   async function signUp() {}
 
   return (
-    <authContext.Provider value={{ signIn, signUp, isAuthenticated }}>
+    <authContext.Provider value={{ signIn, signUp, data, isAuthenticated }}>
       {children}
     </authContext.Provider>
   );

@@ -22,7 +22,7 @@ export default function Page() {
   const [password, setPassword] = useState("");
 
   const auth = getAuth();
-  const { signIn } = useContext(authContext);
+  const { signIn, data } = useContext(authContext);
   const providerGoogle = new GoogleAuthProvider();
   const providerFacebook = new FacebookAuthProvider();
 
@@ -94,10 +94,6 @@ export default function Page() {
       console.log(error)
     });
   }
-
-
-
-
 
   return (
     <main className="flex items-center justify-center min-h-screen">

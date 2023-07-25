@@ -1,8 +1,8 @@
-import "./globals.css";
 import type { Metadata } from "next";
-
-import "./../util/firebase";
 import { AuthProvider } from "@/context/authenticate";
+import Aside from "@/components/aside/Main";
+
+import "./globals.css"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,9 +16,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-        <body>
-          <AuthProvider>{children}</AuthProvider>
-        </body>
+      <body className="flex">
+        <aside className="min-h-screen fixed h-full w-full left-0 z-10 max-w-[280px]">
+          <Aside />
+        </aside>
+        <main id="children">{children}</main>
+      </body>
     </html>
   );
 }

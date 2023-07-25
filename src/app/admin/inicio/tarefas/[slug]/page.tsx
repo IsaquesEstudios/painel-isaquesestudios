@@ -5,13 +5,13 @@ import {
   deleteDoc,
   doc,
   getDocs,
-  getFirestore,
   query,
-  setDoc,
   updateDoc,
   where,
 } from "firebase/firestore";
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 type FindTask = {
   data: {
@@ -110,6 +110,11 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   return (
     <main>
+      <div className="ml-[10%] mt-10">
+        <Link href="/painel">
+          <AiOutlineArrowLeft size={40} />
+        </Link>
+      </div>
       <div className="max-w-[80%] mx-[10%] mt-20">
         <h1 className="text-3xl">
           {data?.data.value.mapValue.fields.title.stringValue}
