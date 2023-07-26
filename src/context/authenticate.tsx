@@ -67,9 +67,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
         if(IsAdminRoute){
           if(user.uid === "zbDrDebZTQcjNtHB4FHzOSUbcun1" || user.uid === "YXtBDuy4peTPwPs3H5zAAzCK9nD3" || user.uid === "ioGRQFR8S3cEyPpSpuyiDwJi27D2"){
             setIsAdmin(true)
+
+            if(path === "/"){
+              window.location.href = "/admin/inicio"
+            }
           }
         } else {
           setIsAdmin(false)
+          if(path === "/"){
+            window.location.href = "/inicio"
+          }
         }
       } else {
         console.log("não está logado");
