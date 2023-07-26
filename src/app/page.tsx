@@ -27,21 +27,15 @@ export default function Page() {
   const providerFacebook = new FacebookAuthProvider();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        if (window.location.pathname === "/") {
-          window.location.href = "/painel";
-        }
-      } else {
-        console.log(user);
-      }
-    });
-  });
+    
+  })
 
   async function HandleSignIn(e: FormEvent) {
     e.preventDefault();
     await signIn({ email, password });
   }
+
+
 
   function HandleSignInGoogle() {
     signInWithPopup(auth, providerGoogle)
@@ -121,16 +115,11 @@ export default function Page() {
 
           <div className="flex gap-x-5">
             <div
-              className="w-10 h-10 bg-red-500 rounded-md flex items-center justify-center cursor-pointer"
+              className="w-full h-10 bg-red-500 rounded-md flex items-center justify-center cursor-pointer"
               onClick={HandleSignInGoogle}
             >
-              <AiOutlineGooglePlus size={26} />
-            </div>
-            <div
-              className="w-10 h-10 bg-blue-500 rounded-md flex items-center justify-center cursor-pointer"
-              onClick={HandleSignInFacebook}
-            >
-              <FaFacebookF size={20} />
+              <AiOutlineGooglePlus size={26} className="mr-2" />
+              <p className="font-semibold text-base">Acessar com o Google</p>
             </div>
           </div>
         </div>

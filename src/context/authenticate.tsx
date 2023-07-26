@@ -43,26 +43,33 @@ type AuthContextData = {
   signIn(credentials: SignInCredentials): Promise<any>;
   signUp(credentials: SignInCredentials): Promise<void>;
   data: DataUser;
+  isAdmin: boolean;
   isAuthenticated: boolean;
 };
-
-const LinkDevelopment = "http://localhost:3333";
 
 export const authContext = createContext({} as AuthContextData);
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [data, setData] = useState<any>();
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const isAuthenticated = !!data;
 
   const auth = getAuth();
-
+  
   useEffect(() => {
-    console.log(data);
+
+    const path = window.location.pathname
+    const split = path.split("/")
+    const IsAdminRoute = split.includes("admin")
     onAuthStateChanged(auth, (user: any) => {
       if (user) {
-        setData(user);
-        if (window.location.pathname === "/") {
-          window.location.href = "/painel";
+        setData(user)
+        if(IsAdminRoute){
+          if(user.uid === "zbDrDebZTQcjNtHB4FHzOSUbcun1" || user.uid === "YXtBDuy4peTPwPs3H5zAAzCK9nD3" || user.uid === "ioGRQFR8S3cEyPpSpuyiDwJi27D2"){
+            setIsAdmin(true)
+          }
+        } else {
+          setIsAdmin(false)
         }
       } else {
         console.log("não está logado");
@@ -71,34 +78,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
   });
 
   async function signIn({ email, password }: SignInCredentials) {
-    try {
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          // ...
-
-          setData(userCredential);
-          console.log("logou");
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // ..
-
-          console.log(errorMessage);
-        });
-
-      // Router.push("/usuario");
-    } catch (error) {
-      console.log(error);
-    }
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        setData(userCredential);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
   }
 
   async function signUp() {}
 
   return (
-    <authContext.Provider value={{ signIn, signUp, data, isAuthenticated }}>
+    <authContext.Provider value={{ signIn, signUp, data, isAdmin, isAuthenticated }}>
       {children}
     </authContext.Provider>
   );
