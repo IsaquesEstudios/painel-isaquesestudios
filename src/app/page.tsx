@@ -27,15 +27,34 @@ export default function Page() {
   const providerFacebook = new FacebookAuthProvider();
 
   useEffect(() => {
-    
-  })
+    onAuthStateChanged(auth, (user: any) => {
+      const path = window.location.pathname;
+      if (user) {
+        if (
+          user.uid === "zbDrDebZTQcjNtHB4FHzOSUbcun1" ||
+          user.uid === "YXtBDuy4peTPwPs3H5zAAzCK9nD3" ||
+          user.uid === "ioGRQFR8S3cEyPpSpuyiDwJi27D2"
+        ) {
+          if (path === "/") window.location.href = "/admin/inicio";
+        } else if (
+          user.uid != "zbDrDebZTQcjNtHB4FHzOSUbcun1" ||
+          user.uid != "YXtBDuy4peTPwPs3H5zAAzCK9nD3" ||
+          user.uid != "ioGRQFR8S3cEyPpSpuyiDwJi27D2"
+        ) {
+          if (path === "/") {
+            window.location.href = "/inicio";
+          }
+        }
+      } else {
+        console.log("não está logado");
+      }
+    });
+  }, []);
 
   async function HandleSignIn(e: FormEvent) {
     e.preventDefault();
     await signIn({ email, password });
   }
-
-
 
   function HandleSignInGoogle() {
     signInWithPopup(auth, providerGoogle)
@@ -62,31 +81,32 @@ export default function Page() {
 
   function HandleSignInFacebook() {
     signInWithPopup(auth, providerFacebook)
-    .then((result) => {
-      // The signed-in user info.
-      const user = result.user;
-  
-      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-      const credential:any = FacebookAuthProvider.credentialFromResult(result);
-      const accessToken = credential.accessToken;
-  
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
 
-      console.log(result)
-    })
-    .catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.customData.email;
-      // The AuthCredential type that was used.
-      const credential = FacebookAuthProvider.credentialFromError(error);
-  
-      // ...
-      console.log(error)
-    });
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential: any =
+          FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+
+        console.log(result);
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = FacebookAuthProvider.credentialFromError(error);
+
+        // ...
+        console.log(error);
+      });
   }
 
   return (

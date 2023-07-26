@@ -10,8 +10,6 @@ import Image from "next/image";
 export default function Aside() {
   const { data } = useContext(authContext);
 
-  console.log(data)
-
   return (
     <ul className="border-r-[2px] h-full border-black-700 border-solid flex flex-col justify-between">
       <div className="">
@@ -32,7 +30,7 @@ export default function Aside() {
         <ItemAside key={2} value="Tarefas" href="/admin/tarefas">
           <AiOutlineProfile size={24} />
         </ItemAside>
-        <ItemAside key={3} value="Pagamentos" href="/inicio/pagamentos">
+        <ItemAside key={3} value="Pagamentos" href="/admin/pagamentos">
           <AiOutlineProfile size={24} />
         </ItemAside>
       </div>

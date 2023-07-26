@@ -55,28 +55,37 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const isAuthenticated = !!data;
 
   const auth = getAuth();
-  
-  useEffect(() => {
 
-    const path = window.location.pathname
-    const split = path.split("/")
-    const IsAdminRoute = split.includes("admin")
+  useEffect(() => {
+    const path = window.location.pathname;
+    const split = path.split("/");
+    const IsAdminRoute = split.includes("admin");
     onAuthStateChanged(auth, (user: any) => {
       if (user) {
-        setData(user)
-        if(IsAdminRoute){
-          if(user.uid === "zbDrDebZTQcjNtHB4FHzOSUbcun1" || user.uid === "YXtBDuy4peTPwPs3H5zAAzCK9nD3" || user.uid === "ioGRQFR8S3cEyPpSpuyiDwJi27D2"){
-            setIsAdmin(true)
+        setData(user);
+        if (IsAdminRoute) {
+          if (
+            user.uid === "zbDrDebZTQcjNtHB4FHzOSUbcun1" ||
+            user.uid === "YXtBDuy4peTPwPs3H5zAAzCK9nD3" ||
+            user.uid === "ioGRQFR8S3cEyPpSpuyiDwJi27D2"
+          ) {
+            setIsAdmin(true);
 
-            if(path === "/"){
-              window.location.href = "/admin/inicio"
-            }
+            // if (path === "/") {
+            //   window.location.href = "/admin/inicio";
+            // }
           }
         } else {
-          setIsAdmin(false)
-          if(path === "/"){
-            window.location.href = "/inicio"
-          }
+          setIsAdmin(false);
+          // if (
+          //   user.uid != "zbDrDebZTQcjNtHB4FHzOSUbcun1" ||
+          //   user.uid != "YXtBDuy4peTPwPs3H5zAAzCK9nD3" ||
+          //   user.uid != "ioGRQFR8S3cEyPpSpuyiDwJi27D2"
+          // ) {
+          //   if (path === "/") {
+          //     window.location.href = "/inicio";
+          //   }
+          // }
         }
       } else {
         console.log("não está logado");
@@ -98,7 +107,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
   async function signUp() {}
 
   return (
-    <authContext.Provider value={{ signIn, signUp, data, isAdmin, isAuthenticated }}>
+    <authContext.Provider
+      value={{ signIn, signUp, data, isAdmin, isAuthenticated }}
+    >
       {children}
     </authContext.Provider>
   );

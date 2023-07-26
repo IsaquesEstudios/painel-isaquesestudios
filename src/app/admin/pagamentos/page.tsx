@@ -1,11 +1,14 @@
+"use client";
 
+import { AllPayments } from "@/components/Paymount/AllPayments";
+import { Suspense } from "react";
 
-
-export default function Page(){
-
-  return(
+export default function Page() {
+  return (
     <div>
-      <p>das</p>
+      <Suspense fallback={<p>carregando</p>}>
+        <AllPayments />
+      </Suspense>
     </div>
-  )
+  );
 }

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { AuthProvider } from "@/context/authenticate";
 import Aside from "@/components/aside/Main";
+// import { QueryClientProvider, QueryClient } from "react-query";
 
-import "./globals.css"
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,13 +15,18 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+  // const queryClient = new QueryClient()
+
   return (
     <html lang="pt-br">
       <body className="flex">
         <aside className="min-h-screen fixed h-full w-full left-0 z-10 max-w-[280px]">
           <Aside />
         </aside>
-        <main id="children">{children}</main>
+        {/* <QueryClientProvider client={queryClient}> */}
+          <main id="children">{children}</main>
+        {/* </QueryClientProvider> */}
       </body>
     </html>
   );
